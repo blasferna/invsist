@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Actualizar {{ object }} {% endblock %}
+
+{% block content %}
+
+
+<h1> Actualizar Marca </h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Guardar">
+    <a href="{% url 'brand_list' %}"> Cancelar </a>
+</form>
+
+{% endblock %}

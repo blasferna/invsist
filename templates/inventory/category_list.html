@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Listado de categorías {% endblock %}
+
+{% block content %}
+<h1> Listado de categoría </h1>
+
+<a href="{% url 'category_create' %}"> Añadir </a>
+{% include 'includes/search_form.html' %}
+<ul>
+    {% for category in object_list %}
+       <li> {{ category.name }} <a href="{% url 'category_update' pk=category.id %}"> Editar </a>  | <a href="{% url 'category_delete' pk=category.id %}"> Elimnar </a> </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'main' %}"> Inicio </a>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+<li> <a href = "{% url 'brand_list' %}"> Marcas </a></li>
+<li>  <a href = "{% url 'category_list' %}"> Categorias </a> </li>
+<li>  <a href = "{% url 'product_list' %}"> Productos </a> </li>
+</ul>
+{% endblock %}

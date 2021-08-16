@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block title %} Listado de marcas {% endblock %}
+
+{% block content %}
+<h1> Listado de Marcas </h1>
+
+<a href="{% url 'brand_create' %}"> Añadir </a>
+
+{% include 'includes/search_form.html' %}
+
+{% render_table table %}
+
+<a href="{% url 'main' %}"> Inicio </a>
+{% endblock %}
+
