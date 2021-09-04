@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_table from django_tables2 %}
 
 {% block title %} Listado de categorías {% endblock %}
 
@@ -6,13 +7,10 @@
 <h1> Listado de categoría </h1>
 
 <a href="{% url 'category_create' %}"> Añadir </a>
+
 {% include 'includes/search_form.html' %}
-<ul>
-    {% for category in object_list %}
-    <li> {{ category.name }} <a href="{% url 'category_update' pk=category.id %}"> Editar </a> | <a
-            href="{% url 'category_delete' pk=category.id %}"> Elimnar </a> </li>
-    {% endfor %}
-</ul>
+
+{% render_table table %}
 
 <a href="{% url 'main' %}"> Inicio </a>
 {% endblock %}

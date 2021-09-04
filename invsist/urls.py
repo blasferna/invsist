@@ -18,12 +18,18 @@ from django.urls import path
 
 # importando vistas
 from store.views import BuyerListView, BuyerCreateView, BuyerUpdateView, BuyerDeleteView
+from store.views import SupplierListView, SupplierCreateView, SupplierUpdateView, SupplierDeleteView
 from inventory.views import BrandListView, BrandCreateView, BrandUpdateView, BrandDeleteView
 from inventory.views import CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 from inventory.views import ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from inventory.views import main
 
 urlpatterns = [
+    # supplier
+    path('store/buyer/<int:pk>/delete', SupplierDeleteView.as_view(), name="supplier_delete"),
+    path('store/buyer/<int:pk>/update', SupplierUpdateView.as_view(), name="supplier_update"),
+    path('store/buyer/add', SupplierCreateView.as_view(), name="supplier_create"),
+    path('store/buyer', SupplierListView.as_view(), name="supplier_list"), 
     # store
     path('store/buyer/<int:pk>/delete', BuyerDeleteView.as_view(), name="buyer_delete"),
     path('store/buyer/<int:pk>/update', BuyerUpdateView.as_view(), name="buyer_update"),

@@ -4,13 +4,13 @@
 
 {% block content %}
 
-<h1> Eliminar comprador </h1>
+<h1> Eliminar proveedor </h1>
 
 <form method="post">
     {% csrf_token %}
     <p>Desea eliminar "{{ object }}"?</p>
     <input type="submit" value="Confirmar">
-    <a href="{% url 'buyer_list' %}"> Cancelar</a>
+    <a href="{% url 'supplier_list' %}"> Cancelar</a>
 </form>
 
 {% endblock %}

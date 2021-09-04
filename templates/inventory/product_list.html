@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_table from django_tables2 %}
 
 {% block title %} Listado de productos {% endblock %}
 
@@ -6,13 +7,10 @@
 <h1> Listado de Productos </h1>
 
 <a href="{% url 'product_create' %}"> Añadir </a>
+
 {% include 'includes/search_form.html' %}
-<ul>
-    {% for product in object_list %}
-       <li> {{ product.name }} <a href="{% url 'product_update' pk=product.id %}"> Editar </a>  | <a href="{% url 'product_delete' pk=product.id %}"> Elimnar </a> </li>
-    {% endfor %}
-</ul>
+
+{% render_table table %}
 
 <a href="{% url 'main' %}"> Inicio </a>
 {% endblock %}
-

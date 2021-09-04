@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_table from django_tables2 %}
 
 {% block content %}
 
@@ -8,13 +9,15 @@
 
 {% include 'includes/search_form.html' %}
 
-<ul>
+<!-- <ul>
     {% for buyer in object_list %}
     <li> {{buyer.name}} <a href="{% url 'buyer_update' pk=buyer.id %}"> Editar</a>
         <a href="{% url 'buyer_delete' pk=buyer.id %}"> Eliminar</a>
     </li>
     {% endfor %}
-</ul>
+</ul> -->
+
+{% render_table table %}
 
 <a href="{% url 'main' %}"> Inicio</a>
 {% endblock %}
