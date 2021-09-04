@@ -17,12 +17,18 @@ from django.contrib import admin
 from django.urls import path
 
 # importando vistas
+from store.views import BuyerListView, BuyerCreateView, BuyerUpdateView, BuyerDeleteView
 from inventory.views import BrandListView, BrandCreateView, BrandUpdateView, BrandDeleteView
 from inventory.views import CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 from inventory.views import ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from inventory.views import main
 
 urlpatterns = [
+    # store
+    path('store/buyer/<int:pk>/delete', BuyerDeleteView.as_view(), name="buyer_delete"),
+    path('store/buyer/<int:pk>/update', BuyerUpdateView.as_view(), name="buyer_update"),
+    path('store/buyer/add', BuyerCreateView.as_view(), name="buyer_create"),
+    path('store/buyer', BuyerListView.as_view(), name="buyer_list"), 
     # product
     path('inventory/products/<int:pk>/delete', ProductDeleteView.as_view(), name="product_delete"),
     path('inventory/products/<int:pk>/update', ProductUpdateView.as_view(), name="product_update"),

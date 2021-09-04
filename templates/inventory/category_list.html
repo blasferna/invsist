@@ -9,7 +9,8 @@
 {% include 'includes/search_form.html' %}
 <ul>
     {% for category in object_list %}
-       <li> {{ category.name }} <a href="{% url 'category_update' pk=category.id %}"> Editar </a>  | <a href="{% url 'category_delete' pk=category.id %}"> Elimnar </a> </li>
+    <li> {{ category.name }} <a href="{% url 'category_update' pk=category.id %}"> Editar </a> | <a
+            href="{% url 'category_delete' pk=category.id %}"> Elimnar </a> </li>
     {% endfor %}
 </ul>
 

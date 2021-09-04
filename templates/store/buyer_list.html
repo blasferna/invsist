@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Listado de comprador</h1>
+
+<a href="{% url 'buyer_create' %}"> Añadir</a>
+
+{% include 'includes/search_form.html' %}
+
+<ul>
+    {% for buyer in object_list %}
+    <li> {{buyer.name}} <a href="{% url 'buyer_update' pk=buyer.id %}"> Editar</a>
+        <a href="{% url 'buyer_delete' pk=buyer.id %}"> Eliminar</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'main' %}"> Inicio</a>
+{% endblock %}
