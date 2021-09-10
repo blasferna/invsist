@@ -2,16 +2,16 @@ from django.db import models
 from inventory.models import Product
 
 class Buyer(models.Model):
-    name = models.CharField(max_length=200)
-    addres = models.CharField(max_length=500)
+    name = models.CharField(max_length=200, verbose_name="Nombre")
+    addres = models.CharField(max_length=500, verbose_name="Dirección")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
 class Supplier(models.Model):
-    name = models.CharField(max_length=200)
-    addres = models.CharField(max_length=500)
+    name = models.CharField(max_length=200, verbose_name="Nombre")
+    addres = models.CharField(max_length=500, verbose_name="Dirección")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

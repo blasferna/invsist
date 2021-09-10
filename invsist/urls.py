@@ -26,10 +26,10 @@ from inventory.views import main
 
 urlpatterns = [
     # supplier
-    path('store/buyer/<int:pk>/delete', SupplierDeleteView.as_view(), name="supplier_delete"),
-    path('store/buyer/<int:pk>/update', SupplierUpdateView.as_view(), name="supplier_update"),
-    path('store/buyer/add', SupplierCreateView.as_view(), name="supplier_create"),
-    path('store/buyer', SupplierListView.as_view(), name="supplier_list"), 
+    path('store/supplier/<int:pk>/delete', SupplierDeleteView.as_view(), name="supplier_delete"),
+    path('store/supplier/<int:pk>/update', SupplierUpdateView.as_view(), name="supplier_update"),
+    path('store/supplier/add', SupplierCreateView.as_view(), name="supplier_create"),
+    path('store/supplier', SupplierListView.as_view(), name="supplier_list"), 
     # store
     path('store/buyer/<int:pk>/delete', BuyerDeleteView.as_view(), name="buyer_delete"),
     path('store/buyer/<int:pk>/update', BuyerUpdateView.as_view(), name="buyer_update"),
