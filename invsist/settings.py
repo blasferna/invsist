@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'inventory',
     'store',
     'django_tables2',
-    'crispy_forms'
+    'crispy_forms',
+    'menu'
 ]
 
 MIDDLEWARE = [

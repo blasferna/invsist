@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <a class="navbar-brand" href="#">Django</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% for item in menu %}
+                {% if item.visible %}
+                    {% if item.separator %}
+                        <li class="divider-vertical"></li>
+                    {% endif %}
+
+                    <li class="nav-item {% if item.selected %} active{% endif %}{% if item.children %} dropdown{% endif %}">
+                        <a class="nav-link {% if item.children %} dropdown-toggle{% endif %}" href="{{ item.url }}" 
+                            {% if item.children %} data-hover="dropdown" data-toggle="dropdown" {% endif %}> 
+                            {% if item.icon %}
+                                <i class="icon-{{ item.icon }} icon-white"></i>&nbsp;
+                            {% endif %}
+                            <span>{{ item.title }}</span>
+                            {% if item.children %}
+                                &nbsp;<b class="caret"></b>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
