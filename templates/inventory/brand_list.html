@@ -6,12 +6,15 @@
 {% block content %}
 <h1> Listado de Marcas </h1>
 
-<a href="{% url 'brand_create' %}"> Añadir </a>
-
-{% include 'includes/search_form.html' %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        {% include 'includes/search_form.html' %}
+    </div>
+    <div class="col-md-4 col-md-offset-2">
+        <a class="btn btn-primary float-right" href="{% url 'brand_create' %}"> Añadir</a>
+    </div>
+</div>
 
 {% render_table table %}
 
-<a href="{% url 'main' %}"> Inicio </a>
 {% endblock %}
-

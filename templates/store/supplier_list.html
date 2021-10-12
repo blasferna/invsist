@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+<h1>Listado de Proveedor</h1>
+
+<div class="row">
+    <div class="col-lg-7">
+        {% include 'includes/search_form.html' %}
+    </div>
+    <div class="col-lg-5">
+        <a class="btn btn-primary float-right" href="{% url 'supplier_create' %}"> Añadir</a>
+    </div>
+</div>
+
+{% render_table table %}
+
+{% endblock %}

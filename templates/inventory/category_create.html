@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-
-{% block title %} Añadir category {% endblock %}
+{% load crispy_forms_tags %}
+{% block title %} Añadir categoria {% endblock %}
 
 {% block content %}
 
-<h1> Añadir category </h1>
+<h1> Añadir Categoria </h1>
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Guardar">
-    <a href="{% url 'category_list' %}"> Cancelar </a>
+    {{ form|crispy }}
+    <input class="btn btn-success" type="submit" value="Guardar">
+    <a class="btn btn-primary" href="{% url 'category_list' %}"> Cancelar </a>
 </form>
 
 {% endblock %}

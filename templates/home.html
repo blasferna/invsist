@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
-<li> <a href = "{% url 'brand_list' %}"> Marcas </a></li>
-<li>  <a href = "{% url 'category_list' %}"> Categorias </a> </li>
-<li>  <a href = "{% url 'product_list' %}"> Productos </a> </li>
-</ul>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">INVSIST</h1>
+        <p class="lead">Lo mejor en gestion su inventario en sus manos </p>
+    </div>
+</div>
+
 {% endblock %}

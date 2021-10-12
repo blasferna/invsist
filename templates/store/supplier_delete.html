@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Eliminar {{ object }} {% endblock %}
+
+{% block content %}
+
+<h1> Eliminar proveedor </h1>
+
+<form method="post">
+    {% csrf_token %}
+    <p>Desea eliminar "{{ object }}"?</p>
+    <input type="submit" value="Confirmar">
+    <a href="{% url 'supplier_list' %}"> Cancelar</a>
+</form>
+
+{% endblock %}

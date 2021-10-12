@@ -6,7 +6,7 @@
 
 <form method="post">{% csrf_token %}
     <p>Desea eliminar "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-    <a href="{% url 'brand_list' %}"> Cancelar </a>
+    <input class="btn btn-danger" type="submit" value="Confirm">
+    <a class="btn btn-primary" href="{% url 'brand_list' %}"> Cancelar </a>
 </form>
 {% endblock %}
