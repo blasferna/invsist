@@ -1,5 +1,5 @@
 from core.mixins import SearchViewMixin
-from core.views import CreateWithFormsetInlinesView
+from core.views import CreateWithFormsetInlinesView, UpdateWithFormsetInlinesView
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -88,7 +88,7 @@ class OrderListView(SearchViewMixin, SingleTableMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['update_url'] = 'buyer_update'
+        context['update_url'] = 'order_update'
         return context
 
 
@@ -108,3 +108,21 @@ class OrderCreateView(CreateWithFormsetInlinesView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         return context
+
+class OrderUpdateView(UpdateWithFormsetInlinesView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'store/order_update.html'
+    inlines = [OrderDetailInline]
+
+    def get_success_url(self):
+        return reverse_lazy('order_list')
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        return form
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        return context
+

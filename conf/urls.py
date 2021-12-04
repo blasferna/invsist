@@ -25,7 +25,7 @@ from inventory.views import (BrandCreateView, BrandDeleteView, BrandListView,
                              ProductUpdateView, main)
 # importando vistas
 from store.views import (BuyerCreateView, BuyerDeleteView, BuyerListView,
-                         BuyerUpdateView, OrderCreateView, OrderListView,
+                         BuyerUpdateView, OrderCreateView, OrderListView, OrderUpdateView,
                          SupplierCreateView, SupplierDeleteView,
                          SupplierListView, SupplierUpdateView)
 
@@ -43,6 +43,7 @@ urlpatterns = [
     # order
     path('store/order', OrderListView.as_view(), name="order_list"), 
     path('store/order/add', OrderCreateView.as_view(), name="order_create"),
+    path('store/order/<int:pk>/update', OrderUpdateView.as_view(), name="order_update"),
     # product
     path('inventory/products/<int:pk>/delete', ProductDeleteView.as_view(), name="product_delete"),
     path('inventory/products/<int:pk>/update', ProductUpdateView.as_view(), name="product_update"),

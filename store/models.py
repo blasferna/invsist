@@ -31,6 +31,10 @@ class Order(models.Model):
     observation = models.CharField(max_length=300)
     user = models.IntegerField(null=True, blank=True)
 
+    @property
+    def total(self):
+        return sum(round(x.quantity * x.price)  for x in self.orderdetail_set.all())
+
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
