@@ -1,9 +1,18 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms.formsets import all_valid
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
+from django_tables2 import SingleTableMixin
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView
 
-from core.mixins import FormsetInlinesMetaMixin
+from core.mixins import FormsetInlinesMetaMixin, SearchViewMixin
+from core.tables import UserTable
+
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 class CreateWithFormsetInlinesView(FormsetInlinesMetaMixin, CreateWithInlinesView):
@@ -77,3 +86,33 @@ class UpdateWithFormsetInlinesView(FormsetInlinesMetaMixin, UpdateWithInlinesVie
             pass
         self.object = initial_object
         return self.forms_invalid(form, inlines)
+
+
+class UserListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListView):
+    model = User
+    table_class = UserTable
+    search_fields = ['username', 'first_name']
+    template_name = 'registration/user_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['update_url'] = 'user_update'
+        return context
+
+class UserCreateView(LoginRequiredMixin, CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = 'registration/user_create.html'
+
+    def get_success_url(self):
+        return reverse_lazy('user_list')
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = CustomUserChangeForm
+    template_name = 'registration/user_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy("user_list")
+

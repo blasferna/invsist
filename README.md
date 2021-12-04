@@ -30,7 +30,13 @@ activate
 (venv) c:\invsist> python manage.py migrate
 ```
 
-5. Ejecutar servidor de pruebas
+5. Crear usuario administrador
+
+```
+(venv) c:\invsist> python manage.py createsuperuser
+```
+
+6. Ejecutar servidor de pruebas
 
 ```
 (venv) c:\invsist> python manage.py runserver

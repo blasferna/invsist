@@ -1,19 +1,21 @@
 from core.mixins import SearchViewMixin
-from core.views import CreateWithFormsetInlinesView, UpdateWithFormsetInlinesView
+from core.views import (CreateWithFormsetInlinesView,
+                        UpdateWithFormsetInlinesView)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django_tables2 import SingleTableMixin
 from inventory.tables import BuyerTable, SupplierTable
-from store.forms import OrderForm
 
+from store.forms import OrderForm
 from store.inlines import OrderDetailInline
 from store.models import Buyer, Order, Supplier
 
 from .tables import OrderTable
 
 
-class BuyerListView(SearchViewMixin, SingleTableMixin, ListView):
+class BuyerListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListView):
     model = Buyer
     table_class = BuyerTable
     search_fields = ['name']
@@ -24,7 +26,7 @@ class BuyerListView(SearchViewMixin, SingleTableMixin, ListView):
         context['update_url'] = 'buyer_update'
         return context
 
-class BuyerCreateView(CreateView):
+class BuyerCreateView(LoginRequiredMixin, CreateView):
     model = Buyer
     template_name = 'store/buyer_create.html'
     fields = ['name', 'addres']
@@ -32,7 +34,7 @@ class BuyerCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('buyer_list')
 
-class BuyerUpdateView(UpdateView):
+class BuyerUpdateView(LoginRequiredMixin, UpdateView):
     model = Buyer
     template_name = 'store/buyer_update.html'
     fields = ['name', 'addres']
@@ -40,14 +42,14 @@ class BuyerUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('buyer_list')
 
-class BuyerDeleteView(DeleteView):
+class BuyerDeleteView(LoginRequiredMixin, DeleteView):
     model = Buyer
     template_name = 'store/buyer_delete.html'
     # success_url = reverse_lazy('buyer_list')
     def get_success_url(self):
         return reverse_lazy('buyer_list')
 
-class SupplierListView(SearchViewMixin, SingleTableMixin, ListView):
+class SupplierListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListView):
     model = Supplier
     table_class = SupplierTable
     search_fields = ['name']
@@ -58,7 +60,7 @@ class SupplierListView(SearchViewMixin, SingleTableMixin, ListView):
         context['update_url'] = 'supplier_update'
         return context
 
-class SupplierCreateView(CreateView):
+class SupplierCreateView(LoginRequiredMixin, CreateView):
     model = Supplier
     template_name = 'store/supplier_create.html'
     fields = ['name', 'addres']
@@ -66,7 +68,7 @@ class SupplierCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('supplier_list')
 
-class SupplierUpdateView(UpdateView):
+class SupplierUpdateView(LoginRequiredMixin, UpdateView):
     model = Supplier
     template_name = 'store/supplier_update.html'
     fields = ['name', 'addres']
@@ -74,13 +76,13 @@ class SupplierUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('supplier_list')
 
-class SupplierDeleteView(DeleteView):
+class SupplierDeleteView(LoginRequiredMixin, DeleteView):
     model = Supplier
     template_name = 'store/supplier_delete.html'
     def get_success_url(self):
         return reverse_lazy('supplier_list')
 
-class OrderListView(SearchViewMixin, SingleTableMixin, ListView):
+class OrderListView(LoginRequiredMixin, SearchViewMixin, SingleTableMixin, ListView):
     model = Order
     table_class = OrderTable
     search_fields = ['supplier__name', 'buyer__name']
@@ -92,7 +94,7 @@ class OrderListView(SearchViewMixin, SingleTableMixin, ListView):
         return context
 
 
-class OrderCreateView(CreateWithFormsetInlinesView):
+class OrderCreateView(LoginRequiredMixin, CreateWithFormsetInlinesView):
     model = Order
     form_class = OrderForm
     template_name = 'store/order_create.html'
@@ -109,7 +111,7 @@ class OrderCreateView(CreateWithFormsetInlinesView):
         context = super().get_context_data(*args, **kwargs)
         return context
 
-class OrderUpdateView(UpdateWithFormsetInlinesView):
+class OrderUpdateView(LoginRequiredMixin, UpdateWithFormsetInlinesView):
     model = Order
     form_class = OrderForm
     template_name = 'store/order_update.html'

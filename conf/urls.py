@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from inventory.views import (BrandCreateView, BrandDeleteView, BrandListView,
                              BrandUpdateView, CategoryCreateView,
                              CategoryDeleteView, CategoryListView,
@@ -28,6 +28,8 @@ from store.views import (BuyerCreateView, BuyerDeleteView, BuyerListView,
                          BuyerUpdateView, OrderCreateView, OrderListView, OrderUpdateView,
                          SupplierCreateView, SupplierDeleteView,
                          SupplierListView, SupplierUpdateView)
+
+from core.views import UserCreateView, UserListView, UserUpdateView
 
 urlpatterns = [
     # supplier
@@ -59,6 +61,10 @@ urlpatterns = [
     path('inventory/brands/<int:pk>/update', BrandUpdateView.as_view(), name="brand_update"),
     path('inventory/brands/add', BrandCreateView.as_view(), name="brand_create"),
     path('inventory/brands', BrandListView.as_view(), name="brand_list"),
+    path('accounts/users/<int:pk>/update', UserUpdateView.as_view(), name="user_update"),
+    path("accounts/users/add", UserCreateView.as_view(), name="user_create"),
+    path("accounts/users", UserListView.as_view(), name="user_list"),
+    path("accounts/", include("django.contrib.auth.urls")),
     path('admin/', admin.site.urls),
     path('', main, name="main"),
 ]
