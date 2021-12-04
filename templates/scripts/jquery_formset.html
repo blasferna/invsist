@@ -1,0 +1,29 @@
+{% load static %}
+<script src="{% static '/site/js/jquery.formset.js' %}"></script>
+<script>
+    jQuery(function($) {
+        $(".formset").formset({
+            animateForms: true
+        });
+
+        $(".formset").on('formAdded', function(e){
+            if (window.hasOwnProperty('currencyManagers')){
+                currencyManagers.forEach(function(obj){
+                    obj.refreshManagedFields();
+                });
+            }
+            if (window.hasOwnProperty('calculatedFields')){
+                resetCalculatedFields();
+            }
+        });
+        
+        $(".formset").on('formDeleted', function(e){
+            if (window.hasOwnProperty('calculatedFields')){
+                calculatedFields.forEach(function(obj){
+                    obj.executeAll();
+                });
+            }
+        });
+
+    });
+</script>

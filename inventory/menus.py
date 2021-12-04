@@ -13,9 +13,3 @@ Menu.add_item("main", MenuItem("Categorias",
 
 Menu.add_item("main", MenuItem("Productos",
                                reverse_lazy("product_list")))
-
-Menu.add_item("main", MenuItem("Comprador",
-                               reverse_lazy("buyer_list")))
-
-Menu.add_item("main", MenuItem("Proveedor",
-                               reverse_lazy("supplier_list")))

@@ -18,16 +18,21 @@ class Supplier(models.Model):
         return self.name
 
 class Order(models.Model):
-    type = models.CharField(max_length=100)
-    date = models.DateTimeField(auto_now_add=True)
-    suppier = models.ForeignKey(Supplier, on_delete=models.DO_NOTHING)
-    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING)
+    INPUT = 'I'
+    OUTPUT = 'O'
+    TYPE_CHOICES = [
+        (INPUT, 'In'),
+        (OUTPUT, 'Out')
+    ]
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    date = models.DateField()
+    supplier = models.ForeignKey(Supplier, on_delete=models.DO_NOTHING, null=True, blank=True)
+    buyer = models.ForeignKey(Buyer, on_delete=models.DO_NOTHING, null=True, blank=True)
     observation = models.CharField(max_length=300)
-    user = models.IntegerField()
+    user = models.IntegerField(null=True, blank=True)
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    cost = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)

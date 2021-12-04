@@ -1,0 +1,103 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_utils %}
+{% load crispy_forms_field %}
+{% load formset_tags %}
+
+{% specialspaceless %}
+<div class="{{css_class}}">
+    {% if formset_title %}<h3 class="block text-gray-700 font-bold mb-2"> {{ formset_title }}</h3>{% endif %}
+
+    <div class="formset overflow-hidden mb-2"
+        data-formset-prefix="{{ formset.prefix }}"
+        id="id_{{ formset.prefix }}">
+        {{ formset.management_form }}
+
+        <div data-formset-body class="d-flex flex-row flex-sm-wrap">
+            {% for subform in formset.forms %}
+            
+            <div data-formset-form class="flex-grow-1 border rounded shadow-sm px-4 py-4 mt-1 mb-1   {{ stacked_class }}">
+               {% if subform.helper %}
+                    {% for hidden in subform.hidden_fields %}
+                    {{ hidden }}
+                    {% endfor %}
+                    {% crispy subform %}
+               {% else %}
+                    {% if subform.errors %}
+                         {#subform.errors#}
+                    {% for error in subform.non_field_errors %}
+                        <div class="bg-red-100 border border-red-400 text-red-700 mt-2 ml-4 mr-4 px-4 py-3 rounded relative"
+                            role="alert">
+                            <strong class="font-bold">Error!</strong>
+                            <span class="block sm:inline">{{ error|escape }}</span>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {# subform|crispy #}
+                   
+                    {% for field in subform.visible_fields %}
+                         
+                         {% if forloop.first%}
+                              {% for hidden in subform.hidden_fields %}
+                              {{ hidden }}
+                              {% endfor %}
+                         {% endif %}
+
+                         {% if forloop.last and formset.can_delete %}
+                              {% include 'bootstrap4/field.html' with formset_delete=True form_show_labels=True %}
+                              <div class="text-center">
+                                   <a class="btn btn-danger btn-block" data-formset-delete-button>Eliminar<!--<i class="bi bi-x-lg"></i>--></a>
+                              </div>
+                         {% else %}
+                              {% include 'bootstrap4/field.html' with form_show_labels=True %}
+                         {% endif %}
+                    {% endfor %}
+
+               {% endif %}
+              
+            </div>
+            {% endfor %}
+          
+        </div>
+
+
+        <script type="form-template" data-formset-empty-form>
+            {% escapescript %}
+                <div data-formset-form class="flex-grow-1 border rounded shadow-sm px-4 py-4 mt-1 mb-1  {{ stacked_class }}">
+               {% if formset.empty_form.helper %}
+                    {% for hidden in formset.empty_form.hidden_fields %}
+                    {{ hidden }}
+                    {% endfor %}
+                    {% crispy formset.empty_form %}
+               {% else %}
+
+                    {# formset.empty_form|crispy #}
+
+                    {% for field in formset.empty_form.visible_fields %}
+                         {% if forloop.first%}
+                            {% for hidden in formset.empty_form.hidden_fields %}
+                            {{ hidden }}
+                            {% endfor %}
+                         {% endif %}
+                         {% if forloop.last and formset.can_delete %}
+                              {% include 'bootstrap4/field.html' with formset_delete=True form_show_labels=True %}
+                              <div class="text-center">
+                                   <a class="btn btn-danger btn-block" data-formset-delete-button>Eliminar<!--<i class="bi bi-x-lg"></i>--></a>
+                              </div>
+                         {% else %}
+                              {% include 'bootstrap4/field.html' with form_show_labels=True %}
+                         {% endif %}
+                    {% endfor %}
+
+               {% endif %}
+                </div>
+            {% endescapescript %}
+        </script>
+
+        <div class="mb-2 mt-3">
+		<a href="javascript:void(0)" type="button" class="btn btn-block btn-light" data-formset-add>Agregar<!--<i class="bi bi-plus-lg"></i>--></a>
+	</div>
+    </div>
+</div>
+{% endspecialspaceless %}

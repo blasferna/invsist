@@ -1,11 +1,10 @@
+from core.mixins import SearchViewMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_tables2 import SingleTableMixin
 
-from inventory.mixins import SearchViewMixin
 from inventory.models import Brand, Category, Product
 from inventory.tables import BrandTable, CategoryTable, ProductTable
 

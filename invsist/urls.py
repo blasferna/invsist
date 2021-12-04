@@ -13,16 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-
+from inventory.views import (BrandCreateView, BrandDeleteView, BrandListView,
+                             BrandUpdateView, CategoryCreateView,
+                             CategoryDeleteView, CategoryListView,
+                             CategoryUpdateView, ProductCreateView,
+                             ProductDeleteView, ProductListView,
+                             ProductUpdateView, main)
 # importando vistas
-from store.views import BuyerListView, BuyerCreateView, BuyerUpdateView, BuyerDeleteView
-from store.views import SupplierListView, SupplierCreateView, SupplierUpdateView, SupplierDeleteView
-from inventory.views import BrandListView, BrandCreateView, BrandUpdateView, BrandDeleteView
-from inventory.views import CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
-from inventory.views import ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
-from inventory.views import main
+from store.views import (BuyerCreateView, BuyerDeleteView, BuyerListView,
+                         BuyerUpdateView, OrderCreateView, OrderListView,
+                         SupplierCreateView, SupplierDeleteView,
+                         SupplierListView, SupplierUpdateView)
 
 urlpatterns = [
     # supplier
@@ -35,6 +40,9 @@ urlpatterns = [
     path('store/buyer/<int:pk>/update', BuyerUpdateView.as_view(), name="buyer_update"),
     path('store/buyer/add', BuyerCreateView.as_view(), name="buyer_create"),
     path('store/buyer', BuyerListView.as_view(), name="buyer_list"), 
+    # order
+    path('store/order', OrderListView.as_view(), name="order_list"), 
+    path('store/order/add', OrderCreateView.as_view(), name="order_create"),
     # product
     path('inventory/products/<int:pk>/delete', ProductDeleteView.as_view(), name="product_delete"),
     path('inventory/products/<int:pk>/update', ProductUpdateView.as_view(), name="product_update"),
@@ -53,3 +61,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main, name="main"),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

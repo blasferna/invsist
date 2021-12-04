@@ -2,3 +2,5 @@ Django==3.1
 django-tables2
 django-crispy-forms
 django-simple-menu
+django-calculation
+django-extra-views
